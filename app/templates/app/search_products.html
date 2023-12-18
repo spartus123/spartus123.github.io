@@ -1,0 +1,22 @@
+{% extends 'app/index.html' %}
+{% load static %}
+{% block title %}Paieškos rezultatai{% endblock title %}
+
+
+
+
+{% block content %}
+<h4>{% trans "Search results for" %} "{{ query }}":</h4>
+<br>
+{% if products %}
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="{% url 'product_id' prod.id %}">{{ id }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{% trans "Oops. Nothing found." %}</p>
+{% endif %}
+{% endblock %}

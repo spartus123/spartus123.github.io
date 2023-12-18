@@ -1,0 +1,40 @@
+{% extends 'app/index.html' %}
+{% load static %}
+{% block title %}Megstamų produktų sąrašas{% endblock title %}
+
+{% block main-content %}
+    <style>
+        .wishlist-title {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .wishlist-products {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        .wishlist-products div {
+            margin: 10px 0;
+        }
+    </style>
+
+    <div class="wishlist-title">Mėgstamų produktų sąrašas</div>
+
+    <div class="wishlist-products">
+        {% for product in products %}
+            <div>{{ product.title }} - €{{ product.discounted_price }}</div>
+        {% endfor %}
+    </div>
+{% endblock main-content %}
+
+
+
+
+
+
+
+

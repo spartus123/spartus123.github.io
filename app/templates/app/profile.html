@@ -1,0 +1,67 @@
+{% extends 'app/index.html' %}
+{% load static %}
+{% block title %}Profilis{% endblock title %}
+
+{% block main-content %}
+    <div class="container my-5">
+        <div class="row">
+            <h3>Sveiki <span class="text-capitalize">{{ request.user }}</span></h3>
+        </div>
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid">
+                    <button id="edit-profile" class="btn btn-primary">Užpildyti arba keisti duomenis</button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-8 offset-sm-1">
+            <form id="profile-form" method="post" style="display: none;">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        <small class="text-danger">{{ field.errors }}</small>
+                    </div>
+                {% endfor %}
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">Išsaugoti</button>
+                </div>
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {% if messages %}
+                    {% for msg in messages %}
+                       <div class="alert alert-{{ msg.tags }}" role="alert">
+                            {{ msg }}
+                       </div>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+  <script>
+    var editProfileButton = document.getElementById('edit-profile');
+    var profilisButton = document.getElementById('profile');
+    var profileForm = document.getElementById('profile-form');
+    var formFields = document.querySelectorAll('input[type="text"], input[type="number"]');
+
+    editProfileButton.addEventListener('click', function() {
+        profileForm.style.display = 'block';
+        formFields.forEach(function(field) {
+            field.readOnly = false; // Enable editing
+            field.style.border = ""; // Restore the border
+        });
+    });
+
+    profilisButton.addEventListener('click', function() {
+        profileForm.style.display = 'block';
+        formFields.forEach(function(field) {
+            field.readOnly = true;
+            field.style.border = "none"; // Make it look like readonly
+        });
+    });
+</script>
+{% endblock main-content %}

@@ -1,0 +1,12 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block title %}Atsijungti{% endblock %}
+
+{% block content %}
+<div class="container" style="display: inline-block; width: 70%">
+    <h5>Jūs sėkmingai atsijungėte.</h5>
+    <br>
+    <a href="{% url 'login' %}">Prisijunkite</a>
+</div>
+{% endblock %}

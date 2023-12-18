@@ -1,0 +1,99 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block title %}Pirkti{% endblock title %}
+
+{% block main-content %}
+<div class="container">
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4>Užsakymo informacija</h4>
+            <hr>
+            {% for item in cart_items %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5>Prekė: {{ item.product.title }}</h5>
+                    <p>Kiekis: {{ item.quantity }}</p>
+                    <p class="fw-bold">Kaina: €{{ item.product.discounted_price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <p class="fw-bold">Bendras užsakymo suma: €{{ totalamount }}</p>
+            <small>Nuostatos ir sąlygos</small>
+        </div>
+        <div class="col-sm-6">
+            <h4>Įveskite pristatymo adresą</h4>
+            <hr>
+            <form method="post" id="myform">
+                {% csrf_token %}
+                {% for ad in add %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5>{{ ad.name }}</h5>
+                        <p>Tel.Nr. : {{ ad.phone }}</p>
+                        <p>{{ ad.locality }} {{ ad.city }} {{ ad.state }} - {{ ad.zipcode }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Čia įtraukti vartotojo profilio formą -->
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="name">Vardas Pavardė</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Vardas" required>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="locality">Adresas</label>
+                    <input type="text" class="form-control" id="locality" name="locality" placeholder="Gyvenamoji vieta" required>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="city">Miestas</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Miestas" required>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="zipcode">Pašto kodas</label>
+                    <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="Pašto kodas" required>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="state">Regionas</label>
+                    <input type="text" class="form-control" id="state" name="state" placeholder="Regionas" required>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label class="form-label fw-bold" for="phone">Telefono numeris</label>
+                    <input type="number" class="form-control" id="phone" name="phone" placeholder="+370" required>
+                </div>
+
+<!--                <div class="form-check mb-3">-->
+<!--                    <label for="totamount" class="form-label">Viso</label>-->
+<!--                    <input type="number" class="form-control" name="totalamount" value="{{ totalamount }}" readonly>-->
+<!--                </div>-->
+                <div class="text-end">
+                    <a href="{% url 'payment' %}" class="btn btn-warning mt-2 px-5 fw-bold">Mokėti</a>
+<!--                    <button id="stripe-button1" class="btn btn-warning mt-2 px-5 fw-bold">Mokėti</button>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
